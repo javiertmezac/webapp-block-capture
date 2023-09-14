@@ -14,7 +14,7 @@ namespace webapp_impl_service.dbaccess
             {
                 try
                 {
-                    return System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                    return "";
                 }
                 catch (Exception error)
                 {
