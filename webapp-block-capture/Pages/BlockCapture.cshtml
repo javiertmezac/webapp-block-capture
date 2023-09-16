@@ -8,15 +8,22 @@
     <h1 class="display-4">Block Capture</h1>
 </div>
 
+@if(Model.message.Length > 0)
+{
+<div class="alert">
+    @Model.message
+</div>
+}
+
 <div class="card-body">
-    <form novalidate (ngSubmit)="saveBlock()" [formGroup]="blockForm" *ngIf="employee">
+    <form novalidate method="post">
 
         <div class="form-group">
             <div class="form-group row mb-2">
                 <label class="col-md-2 col-form-label" for="employeeId">ID Trabajador:</label>
                 <div class="col-md-4">
                     <input class="form-control" id="employeeId" type="text" placeholder="ID (requerido)"
-                           formControlName="id" [ngClass]="{'is-invalid': (blockForm.get('employeeId')?.touched ||
+                           asp-for="@Model.employee.employeeId" [ngClass]="{'is-invalid': (blockForm.get('employeeId')?.touched ||
                                 blockForm.get('employeeId')?.dirty) &&
                                 !blockForm.get('employeeId')?.valid }" />
                 </div>
@@ -26,7 +33,7 @@
                 <label class="col-md-2 col-form-label" for="letterId">Letra:</label>
                 <div class="col-md-4">
                     <input class="form-control" id="letterId" type="text" placeholder="Letra (requerido)"
-                           formControlName="letter" [ngClass]="{'is-invalid': (blockForm.get('letter')?.touched ||
+                           asp-for="@Model.employee.letter" [ngClass]="{'is-invalid': (blockForm.get('letter')?.touched ||
                                 blockForm.get('letter')?.dirty) &&
                                 !blockForm.get('letter')?.valid }" />
                     <span class="invalid-feedback">
@@ -44,7 +51,7 @@
                 <label class="col-md-2 col-form-label" for="startNumberId">Número Inicial:</label>
                 <div class="col-md-4">
                     <input class="form-control" id="startNumberId" type="text" placeholder="Número Inicial (requerido)"
-                           formControlName="startNumber" [ngClass]="{'is-invalid': (blockForm.get('startNumber')?.touched ||
+                           asp-for="@Model.employee.startNumber" [ngClass]="{'is-invalid': (blockForm.get('startNumber')?.touched ||
                                 blockForm.get('startNumber')?.dirty) &&
                                 !blockForm.get('startNumber')?.valid }" />
                     <span class="invalid-feedback">
@@ -59,7 +66,7 @@
                 <label class="col-md-2 col-form-label" for="endNumberId">Número Final:</label>
                 <div class="col-md-4">
                     <input class="form-control" id="endNumberId" type="text" placeholder="Número Final (requerido)"
-                           formControlName="endNumber" [ngClass]="{'is-invalid': (blockForm.get('endNumber')?.touched ||
+                           asp-for="@Model.employee.endNumber" [ngClass]="{'is-invalid': (blockForm.get('endNumber')?.touched ||
                                           blockForm.get('endNumber')?.dirty) &&
                                 !blockForm.get('endNumber')?.valid }" />
                     <span class="invalid-feedback">
@@ -73,16 +80,15 @@
             <div class="form-group row mb-2" *ngIf="block && block.blockId != 0">
                 <label class="col-md-2 col-form-label" for="endNumberId">Secuencia:</label>
                 <div class="col-md-4">
-                    <input class="form-control" id="endNumberId" type="text" formControlName="blockNextNumber" />
+                    <input class="form-control" id="endNumberId" type="text" asp-for="@Model.employee.blockNextNumber" />
                 </div>
             </div>
         </div>
 
         <div class="form-group row mb-2">
             <div class="offset-md-2 col-md-4">
-                <button class="btn btn-primary mr-3" style="width:100px;" type="submit"
-                        [title]="blockForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                        [disabled]="!blockForm.valid">
+                <button class="btn btn-primary mr-3" style="width:100px;" type="submit" asp-page-handler="employeeBlock"
+                        [title]="blockForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'">
                     Guardar
                 </button>
                 <button class="btn btn-outline-secondary mr-3" style="width:100px;" type="button" title="Cancel your edits"

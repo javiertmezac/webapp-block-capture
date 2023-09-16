@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using webapp_impl_service.implementation;
+using webapp_impl_service.model;
 
 namespace webapp_block_capture.Pages
 {
@@ -12,18 +13,40 @@ namespace webapp_block_capture.Pages
     {
         private readonly ILogger<BlockCaptureModel> _logger;
         private EmployeeApplication employeeApplication;
-        public List<System.Data.DataRow> dataRows;
+        private BlockApplication blockApplication;
+
+        [BindProperty]
+        public EmployeeBlock employee { get; set; } = default!;
+        public string message = "";
 
         public BlockCaptureModel(ILogger<BlockCaptureModel> logger)
         {
             _logger = logger;
             employeeApplication = new EmployeeApplication();
-            dataRows = new List<System.Data.DataRow>();
+            blockApplication = new BlockApplication();
         }
 
         public void OnGet()
         {
             employeeApplication.SelectAllEmployees("").Select().ToList();
+        }
+
+        public IActionResult OnPostEmployeeBlock()
+        {
+            string result = "";
+            try
+            {
+                if (employee != null)
+                {
+                    bool queryResult = blockApplication.RegistertBlock(employee);
+                    result = queryResult ? "All Good!" : "Something went wrong!";
+                }
+            }
+            catch (Exception ex)
+            {
+                result = "Server Error: " + ex.Message;
+            }
+            return Content(result);
         }
     }
 }

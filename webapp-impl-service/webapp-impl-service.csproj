@@ -10,10 +10,12 @@
   <ItemGroup>
     <None Remove="db-access\" />
     <None Remove="implementation\" />
+    <None Remove="model\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="db-access\" />
     <Folder Include="implementation\" />
+    <Folder Include="model\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />

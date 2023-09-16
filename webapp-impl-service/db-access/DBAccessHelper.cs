@@ -72,7 +72,7 @@ namespace webapp_impl_service.dbaccess
                 valorObtenido = command.ExecuteScalar();
                 opStatus = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 opStatus = false;
                 mensajes = "Ha ocurrido un error al intentar establecer comunicación con el servidor. Contacte a su administrador de sistemas";
